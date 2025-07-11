@@ -1,0 +1,84 @@
+{
+  "rentals": [
+    {
+      "name": "The UFO Bungalow",
+      "description": "Experience an out-of-this-world stay in our UFO-themed bungalow. Enjoy cosmic views and \"alien\" hospitality—this stay is truly out of this world!",
+      "location": "Area 51, Nevada Desert",
+      "availabilityDates": {
+        "start": "2025-01-01",
+        "end": "2025-12-31"
+      },
+      "avgRating": 4.8
+    },
+    {
+      "name": "Haunted Loft",
+      "description": "Live with friendly ghosts in our elegantly eerie loft. Paranormal activity is included at no extra charge!",
+      "location": "Salem, Massachusetts",
+      "availabilityDates": {
+        "start": "2025-01-01",
+        "end": "2025-12-31"
+      },
+      "avgRating": 4.6
+    },
+    {
+      "name": "The Meme Mansion",
+      "description": "Step into a house where every wall is plastered with iconic memes. Picture \"Side Eyeing Chloe\" smirking in the living room, and \"Chill Guy\" artwork exuding laid-back vibes in the hallway.",
+      "location": "Silicon Valley, California",
+      "availabilityDates": {
+        "start": "2025-01-01",
+        "end": "2025-12-31"
+      },
+      "avgRating": 4.9
+    },
+    {
+      "name": "The Upside-Down Hacienda",
+      "description": "Challenge gravity in a house flipped on its roof—furniture, decor, and even your morning coffee cup are all upside down. Prepare for a topsy-turvy stay!",
+      "location": "Santa Fe, New Mexico",
+      "availabilityDates": {
+        "start": "2025-01-01",
+        "end": "2025-12-31"
+      },
+      "avgRating": 4.7
+    },
+    {
+      "name": "The Marshmallow Mansion",
+      "description": "Float in fluffy luxury within walls of giant, pillowy marshmallows. Complimentary hot chocolate served 24/7 to keep the sugar rush going!",
+      "location": "Aspen, Colorado",
+      "availabilityDates": {
+        "start": "2025-01-01",
+        "end": "2025-12-31"
+      },
+      "avgRating": 4.5
+    },
+    {
+      "name": "The Unicorn Lava Lounge",
+      "description": "Bask in the warm glow of rainbow lava as unicorns trot by with your midnight snack. Glitter geysers activate on the hour—towels not included!",
+      "location": "Portland, Oregon",
+      "availabilityDates": {
+        "start": "2025-01-01",
+        "end": "2025-12-31"
+      },
+      "avgRating": 4.7
+    },
+    {
+      "name": "The Procrastination Palace",
+      "description": "A retreat where all clocks show different times, deadlines don't exist, and tomorrow never comes. Features a 'Just 5 More Minutes' bedroom and a 'I'll Do It Later' lounge.",
+      "location": "Boulder, Colorado",
+      "availabilityDates": {
+        "start": "2025-01-01",
+        "end": "2025-12-31"
+      },
+      "avgRating": 4.6
+    },
+    {
+      "name": "The Ramen Residence",
+      "description": "Live the college dream in luxury! Swimming pool filled with noodles, instant ramen dispenser in every room, and a midnight snack vending machine that only accepts spare change.",
+      "location": "Austin, Texas",
+      "availabilityDates": {
+        "start": "2025-01-01",
+        "end": "2025-12-31"
+      },
+      "avgRating": 4.9
+    }
+  ]
+}
