@@ -1,11 +1,88 @@
+// Variable to store rental data
+let rentalData = null;
+
+// Function to load rental data from JSON file
+async function loadRentalData() {
+  try {
+    const response = await fetch("./rentals.json");
+    if (!response.ok) {
+      throw new Error(`Failed to load rental data: ${response.status}`);
+    }
+    rentalData = await response.json();
+    console.log("Rental data loaded successfully");
+  } catch (error) {
+    console.error("Error loading rental data:", error);
+  }
+}
+
 // Store the conversation history for the API
 let conversationHistory = [
   {
     role: "system",
-    content:
-      "You are a helpful assistant for Offbeat Retreats, a vacation rental company specializing in unique and quirky accommodations.",
+    content: `You are a helpful assistant for Offbeat Retreats, a vacation rental company specializing in unique and quirky accommodations. 
+
+Your goal is to guide users through a short conversation (2-3 questions) to match them with the perfect rental from our available properties.
+
+AVAILABLE RENTAL DATA:
+${JSON.stringify(rentalData, null, 2)}
+
+CONVERSATION FLOW:
+1. First, greet them warmly and ask about their preferred theme/vibe (funny, spooky, cozy, weird, etc.)
+2. Then ask about their preferred location or climate preferences
+3. Finally, ask about group size or any special interests they have
+
+After gathering their answers, recommend 1-2 properties that best match their preferences.
+
+FORMATTING GUIDELINES:
+- Use line breaks between different sections of your response
+- Format recommendations clearly with bullet points like this:
+  🏠 **Property Name**
+  📍 Location
+  ⭐ Rating: X/5 stars
+  📝 Description
+  ✨ Why it's perfect for you: [explain based on their answers]
+
+- Keep your tone friendly, enthusiastic, and conversational
+- Use emojis sparingly to make responses more engaging
+- Ask one question at a time to keep the conversation flowing naturally
+
+Start the conversation by greeting them warmly and asking your first question about their preferred vibe!`,
   },
 ];
+
+// Function to update the system message with rental data
+function updateSystemMessage() {
+  if (rentalData) {
+    conversationHistory[0].content = `You are a helpful assistant for Offbeat Retreats, a vacation rental company specializing in unique and quirky accommodations. 
+
+Your goal is to guide users through a short conversation (2-3 questions) to match them with the perfect rental from our available properties.
+
+AVAILABLE RENTAL DATA:
+${JSON.stringify(rentalData, null, 2)}
+
+CONVERSATION FLOW:
+1. First, greet them warmly and ask about their preferred theme/vibe (funny, spooky, cozy, weird, etc.)
+2. Then ask about their preferred location or climate preferences
+3. Finally, ask about group size or any special interests they have
+
+After gathering their answers, recommend 1-2 properties that best match their preferences.
+
+FORMATTING GUIDELINES:
+- Use line breaks between different sections of your response
+- Format recommendations clearly with bullet points like this:
+  🏠 **Property Name**
+  📍 Location
+  ⭐ Rating: X/5 stars
+  📝 Description
+  ✨ Why it's perfect for you: [explain based on their answers]
+
+- Keep your tone friendly, enthusiastic, and conversational
+- Use emojis sparingly to make responses more engaging
+- Ask one question at a time to keep the conversation flowing naturally
+
+Start the conversation by greeting them warmly and asking your first question about their preferred vibe!`;
+  }
+}
 
 // Function to call OpenAI Chat Completions API
 async function callOpenAI(messages) {
@@ -19,8 +96,10 @@ async function callOpenAI(messages) {
       body: JSON.stringify({
         model: "gpt-4o",
         messages: messages,
-        temperature: 0.7,
-        max_tokens: 500,
+        temperature: 0.8, // Increased for more natural conversation
+        max_tokens: 800, // Increased for more detailed responses
+        presence_penalty: 0.1, // Slightly reduce repetition
+        frequency_penalty: 0.1, // Encourage variety in responses
       }),
     });
 
@@ -37,7 +116,12 @@ async function callOpenAI(messages) {
 }
 
 // Main function to initialize the chat interface
-function initChat() {
+async function initChat() {
+  // Load rental data first
+  await loadRentalData();
+  // Update system message with rental data
+  updateSystemMessage();
+
   // Get all required DOM elements
   const chatToggle = document.getElementById("chatToggle");
   const chatBox = document.getElementById("chatBox");
@@ -89,10 +173,11 @@ function initChat() {
       // Remove typing indicator
       chatMessages.removeChild(typingMessage);
 
-      // Display the AI's response
+      // Display the AI's response with preserved formatting
       const botMessage = document.createElement("div");
       botMessage.classList.add("message", "bot");
-      botMessage.textContent = aiResponse;
+      // Use innerHTML to preserve line breaks and convert \n to <br>
+      botMessage.innerHTML = aiResponse.replace(/\n/g, "<br>");
       chatMessages.appendChild(botMessage);
 
       // Add AI response to conversation history
